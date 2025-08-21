@@ -1,0 +1,12 @@
+1: Familiarization of DDL Commands and Constraints.
+
+Consider the schema
+Student(admission_no, stud_name) Membership(member_id, admission_no) Book(book_id, book_name, author, book_type) BookType(type_id, type)
+BookIssue(issue_id, issue_date, member_id, book_id)
+
+1.	Create the above tables and provide appropriate integrity constraints and insert few records to the tables.
+2.	Add a column “programme” to the Student table.
+3.	Modify the column width of book_name and author of Book relation.
+4.	Drop the BookType table.
+
+// SQL CODE :-
