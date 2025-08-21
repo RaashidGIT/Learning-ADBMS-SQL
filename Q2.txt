@@ -1,0 +1,160 @@
+Use the following relations. If needed, make necessary changes the schema.)
+Department
+Dname	Not NULL,unique
+Dnumber	Primary key
+ManagerID	Refers to EmployeeID of Employee Table
+Mgr_start_date	Not NULL
+
+Employee
+Name	Not NULL
+EmployeeID	Primary key
+BirthDate	
+HouseName	
+Gender	
+Salary	5000 to 25000
+SuperEID	Refers to Employee itself
+Dnumber	Refers to Dnumber of Department Table
+
+DeptLocations
+Dnumber	Dnumber refers to Dnumber of Department Table. Also Dnumber and Dlocation are combined Primary key.
+Dlocation	
+
+Project
+Pname	Not NULL
+Pnumber	Primary key
+Plocation	
+Dnumber	Not NULL, Refers to Department Table
+
+Works-on
+EmployeeID	Refers to Employee Table
+Pnumber	Refers to Project
+Hours	Not NULL
+
+Dependent
+EmployeeID	Refers to Employee Table
+DependName	Not NULL
+Sex	
+BirthDate	
+Relationship	
+	EmployeeID and DependName together forms primary key.
+
+-------------------------------------------------------------------------------------------------------------------
+                            SQL CODE:-
+-------------------------------------------------------------------------------------------------------------------
+
+-- Create Database
+CREATE DATABASE CompanyDB;
+USE CompanyDB;
+
+-- 1. Employee Table
+CREATE TABLE Employee (
+    Name        VARCHAR(50) NOT NULL,
+    EmployeeID  INT PRIMARY KEY,
+    BirthDate   DATE,
+    HouseName   VARCHAR(100),
+    Gender      VARCHAR(10),
+    Salary      INT CHECK (Salary BETWEEN 5000 AND 25000),
+    SuperEID    INT,
+    Dnumber     INT,
+    FOREIGN KEY (SuperEID) REFERENCES Employee(EmployeeID),
+    FOREIGN KEY (Dnumber) REFERENCES Department(Dnumber)
+);
+
+-- 2. Department Table
+CREATE TABLE Department (
+    Dname          VARCHAR(50) NOT NULL UNIQUE,
+    Dnumber        INT PRIMARY KEY,
+    ManagerID      INT,
+    Mgr_start_date DATE NOT NULL,
+    FOREIGN KEY (ManagerID) REFERENCES Employee(EmployeeID)
+);
+
+-- 3. DeptLocations Table
+CREATE TABLE DeptLocations (
+    Dnumber   INT,
+    Dlocation VARCHAR(100),
+    PRIMARY KEY (Dnumber, Dlocation),
+    FOREIGN KEY (Dnumber) REFERENCES Department(Dnumber)
+);
+
+-- 4. Project Table
+CREATE TABLE Project (
+    Pname     VARCHAR(50) NOT NULL,
+    Pnumber   INT PRIMARY KEY,
+    Plocation VARCHAR(100),
+    Dnumber   INT NOT NULL,
+    FOREIGN KEY (Dnumber) REFERENCES Department(Dnumber)
+);
+
+-- 5. Works_on Table
+CREATE TABLE Works_on (
+    EmployeeID INT,
+    Pnumber    INT,
+    Hours      DECIMAL(5,2) NOT NULL,
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID),
+    FOREIGN KEY (Pnumber) REFERENCES Project(Pnumber),
+    PRIMARY KEY (EmployeeID, Pnumber)
+);
+
+-- 6. Dependent Table
+CREATE TABLE Dependent (
+    EmployeeID   INT,
+    DependName   VARCHAR(50) NOT NULL,
+    Sex          CHAR(1),
+    BirthDate    DATE,
+    Relationship VARCHAR(25),
+    PRIMARY KEY (EmployeeID, DependName),
+    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
+);
+
+//
+
+-- Insert into Employee first (since others depend on it)
+INSERT INTO Employee (Name, EmployeeID, BirthDate, HouseName, Gender, Salary, SuperEID, Dnumber)
+VALUES
+('Alice',   101, '1990-05-12', 'Sunrise Villa', 'F', 15000, NULL, NULL),
+('Bob',     102, '1985-09-18', 'Green Cottage', 'M', 18000, 101, NULL),
+('Charlie', 103, '1992-11-25', 'Rosewood House', 'M', 12000, 101, NULL),
+('David',   104, '1988-02-02', 'Hilltop Residency', 'M', 22000, 102, NULL),
+('Eve',     105, '1993-03-20', 'Lake View', 'F', 14000, 103, NULL);
+
+-- Insert into Department (ManagerID must exist in Employee)
+INSERT INTO Department (Dname, Dnumber, ManagerID, Mgr_start_date)
+VALUES
+('HR',       1, 101, '2020-01-01'),
+('Finance',  2, 102, '2021-02-15'),
+('IT',       3, 103, '2019-07-10');
+
+-- Insert into DeptLocations
+INSERT INTO DeptLocations (Dnumber, Dlocation)
+VALUES
+(1, 'Mumbai'),
+(2, 'Delhi'),
+(3, 'Bangalore'),
+(3, 'Hyderabad');
+
+-- Insert into Project (Each must belong to a Department)
+INSERT INTO Project (Pname, Pnumber, Plocation, Dnumber)
+VALUES
+('Payroll System',  11, 'Delhi',      2),
+('Recruitment',     12, 'Mumbai',     1),
+('AI Research',     13, 'Bangalore',  3),
+('Cloud Migration', 14, 'Hyderabad',  3);
+
+-- Insert into Works_on (Employee works on Projects)
+INSERT INTO Works_on (EmployeeID, Pnumber, Hours)
+VALUES
+(101, 12, 10.5),
+(102, 11, 15.0),
+(103, 13, 20.0),
+(104, 14, 18.0),
+(101, 13, 8.0);  -- Alice also helps in AI Research
+
+-- Insert into Dependent
+INSERT INTO Dependent (EmployeeID, DependName, Sex, BirthDate, Relationship)
+VALUES
+(101, 'Emma', 'F', '2015-08-10', 'Daughter'),
+(102, 'John', 'M', '2012-03-15', 'Son'),
+(103, 'Sophia', 'F', '2018-06-25', 'Daughter'),
+(104, 'Olivia', 'F', '2010-11-05', 'Spouse');
+
