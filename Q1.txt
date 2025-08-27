@@ -56,6 +56,8 @@ Table: BookIssue
 
 // SQL CODE :-  
 
+-- 1) Create the above tables and provide appropriate integrity constraints and insert few records to the tables.
+
 -- Student table
 CREATE TABLE Student (
     admission_no INT PRIMARY KEY,
@@ -111,16 +113,16 @@ INSERT INTO Book VALUES (1002, 'Brief History of Time', 'Stephen Hawking', 2);
 INSERT INTO BookIssue VALUES (501, '2025-08-25', 1, 1001);
 INSERT INTO BookIssue VALUES (502, '2025-08-26', 2, 1002);
 
--- 1) Add a column “programme” to the Student table
+-- 2) Add a column “programme” to the Student table
 ALTER TABLE Student
 ADD programme VARCHAR(50);
 
--- 2) Modify the column width of book_name and author in Book relation
+-- 3) Modify the column width of book_name and author in Book relation
 ALTER TABLE Book
 MODIFY book_name VARCHAR(200),
 MODIFY author VARCHAR(150);
 
--- 3) Drop the BookType table
+-- 4) Drop the BookType table
 ALTER TABLE Book DROP FOREIGN KEY book_ibfk_1; -- Add this line, if you want to delete the entire table whose one value is being referenced by another table.
 DROP TABLE BookType;
 
