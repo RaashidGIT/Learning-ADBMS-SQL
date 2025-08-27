@@ -82,6 +82,7 @@ CREATE TABLE Book (
     author VARCHAR(100),
     book_type INT,
     FOREIGN KEY (book_type) REFERENCES BookType(type_id)
+        ON DELETE SET NULL
 );
 
 -- BookIssue table
