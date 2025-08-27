@@ -3,3 +3,22 @@
 INSERT INTO Department (Dname, Dnumber, ManagerID, Mgr_start_date)
      VALUES ('Finance', 4, NULL, '2022-05-01');
 
+-- 2)  Insert more than a record into Employee table using a single insert command. 
+
+INSERT INTO Department (Dname, Dnumber, ManagerID, Mgr_start_date)
+     VALUES ('HR', 1, NULL, '2021-03-15'),
+            ('IT', 2, NULL, '2020-07-10'),
+            ('Sales', 3, NULL, '2023-01-05');
+
+-- 3)  Update the employee table to set the salary of all employees to Rs15000/- whom are getting a (salary > 10,000).
+
+ UPDATE Employee
+     SET Salary = 15000
+     WHERE Salary > 10000;
+
+-- 4)  Move a project “P1” of department no D1 to another department D2. 
+
+UPDATE Project
+     SET Dnumber = 2
+     WHERE Pname = 'Payroll System' AND Dnumber = 1;
+
