@@ -1,12 +1,123 @@
 1: Familiarization of DDL Commands and Constraints.
 
-Consider the schema
-Student(admission_no, stud_name) Membership(member_id, admission_no) Book(book_id, book_name, author, book_type) BookType(type_id, type)
-BookIssue(issue_id, issue_date, member_id, book_id)
+Consider the schema: -
+
+Student(admission_no, stud_name), Membership(member_id, admission_no), Book(book_id, book_name, author, book_type), BookType(type_id, type), BookIssue(issue_id, issue_date, member_id, book_id)
+
+Table: Student
++--------------+------------------------------------+
+| Attribute    | Description                        |
++--------------+------------------------------------+
+| admission_no | Admission number (Primary Key)     |
+| stud_name    | Student name                       |
++--------------+------------------------------------+
+
+Table: Membership
++--------------+------------------------------------+
+| Attribute    | Description                        |
++--------------+------------------------------------+
+| member_id    | Membership ID (Primary Key)        |
+| admission_no | Refers to Student(admission_no)    |
++--------------+------------------------------------+
+
+Table: BookType
++--------------+------------------------------------+
+| Attribute    | Description                        |
++--------------+------------------------------------+
+| type_id      | Type ID (Primary Key)              |
+| type         | Type of book (e.g., Fiction, Sci.) |
++--------------+------------------------------------+
+
+Table: Book
++--------------+------------------------------------+
+| Attribute    | Description                        |
++--------------+------------------------------------+
+| book_id      | Book ID (Primary Key)              |
+| book_name    | Name of the book                   |
+| author       | Author of the book                 |
+| book_type    | Refers to BookType(type_id)        |
++--------------+------------------------------------+
+
+Table: BookIssue
++--------------+------------------------------------+
+| Attribute    | Description                        |
++--------------+------------------------------------+
+| issue_id     | Issue ID (Primary Key)             |
+| issue_date   | Date of issue                      |
+| member_id    | Refers to Membership(member_id)    |
+| book_id      | Refers to Book(book_id)            |
++--------------+------------------------------------+
+
 
 1.	Create the above tables and provide appropriate integrity constraints and insert few records to the tables.
 2.	Add a column “programme” to the Student table.
 3.	Modify the column width of book_name and author of Book relation.
 4.	Drop the BookType table.
 
-// SQL CODE :-
+// SQL CODE :-  
+
+-- Student table
+CREATE TABLE Student (
+    admission_no INT PRIMARY KEY,
+    stud_name VARCHAR(100) NOT NULL
+);
+
+-- Membership table
+CREATE TABLE Membership (
+    member_id INT PRIMARY KEY,
+    admission_no INT,
+    FOREIGN KEY (admission_no) REFERENCES Student(admission_no)
+);
+
+-- BookType table
+CREATE TABLE BookType (
+    type_id INT PRIMARY KEY,
+    type VARCHAR(50) NOT NULL
+);
+
+-- Book table
+CREATE TABLE Book (
+    book_id INT PRIMARY KEY,
+    book_name VARCHAR(150) NOT NULL,
+    author VARCHAR(100),
+    book_type INT,
+    FOREIGN KEY (book_type) REFERENCES BookType(type_id)
+);
+
+-- BookIssue table
+CREATE TABLE BookIssue (
+    issue_id INT PRIMARY KEY,
+    issue_date DATE NOT NULL,
+    member_id INT,
+    book_id INT,
+    FOREIGN KEY (member_id) REFERENCES Membership(member_id),
+    FOREIGN KEY (book_id) REFERENCES Book(book_id)
+);
+
+-- Insert sample data
+INSERT INTO Student VALUES (101, 'Alice');
+INSERT INTO Student VALUES (102, 'Bob');
+
+INSERT INTO Membership VALUES (1, 101);
+INSERT INTO Membership VALUES (2, 102);
+
+INSERT INTO BookType VALUES (1, 'Fiction');
+INSERT INTO BookType VALUES (2, 'Science');
+
+INSERT INTO Book VALUES (1001, 'The Time Machine', 'H.G. Wells', 1);
+INSERT INTO Book VALUES (1002, 'Brief History of Time', 'Stephen Hawking', 2);
+
+INSERT INTO BookIssue VALUES (501, '2025-08-25', 1, 1001);
+INSERT INTO BookIssue VALUES (502, '2025-08-26', 2, 1002);
+
+-- 1) Add a column “programme” to the Student table
+ALTER TABLE Student
+ADD programme VARCHAR(50);
+
+-- 2) Modify the column width of book_name and author in Book relation
+ALTER TABLE Book
+MODIFY book_name VARCHAR(200),
+MODIFY author VARCHAR(150);
+
+-- 3) Drop the BookType table
+DROP TABLE BookType;
