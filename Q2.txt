@@ -1,4 +1,5 @@
 -- 1)  Insert a single record into department table. 
 
 INSERT INTO Department (Dname, Dnumber, ManagerID, Mgr_start_date)
-    -> VALUES ('Finance', 4, NULL, '2022-05-01');
+     VALUES ('Finance', 4, NULL, '2022-05-01');
+
