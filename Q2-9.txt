@@ -82,7 +82,7 @@ INSERT INTO Employee (Name, EmployeeID, BirthDate, HouseName, Gender, Salary, Su
 ('Eve',     105, '1983-03-05', 'Hill Top',     'F', 22000, 101, 3),
 ('Frank',   106, '1995-11-30', 'Sunrise Home', 'M',  8000, 105, 3);
 
--- Update Department Managers
+-- Update Department Managers  // Automatically updates ManagerID in department table depending on the Dnumber from the Employee table
 UPDATE Department SET ManagerID = 102 WHERE Dnumber = 4;  -- Finance -> Bob
 UPDATE Department SET ManagerID = 101 WHERE Dnumber = 1;  -- HR -> Alice
 UPDATE Department SET ManagerID = 103 WHERE Dnumber = 2;  -- IT -> Charlie
