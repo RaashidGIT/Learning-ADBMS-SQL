@@ -1,0 +1,3 @@
+// command to access MySQL
+
+mysql -u root -p
