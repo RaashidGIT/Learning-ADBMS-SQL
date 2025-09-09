@@ -22,3 +22,7 @@ UPDATE Project
      SET Dnumber = 2
      WHERE Pname = 'Payroll System' AND Dnumber = 1;
 
+-- 5)  Delete only those who are working on a particular project say ‘’P1’’.
+
+DELETE FROM Works_on
+    -> WHERE Pnumber = 1;
