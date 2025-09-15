@@ -32,3 +32,60 @@ WHERE E.NAME = D.DEPENDNAME AND E.GENDER = D.SEX;
 | Alice |
 | Bob   |
 +-------+
+
+-- --------------------------------------
+-- 2)  Employees who have no dependents
+-- --------------------------------------
+SELECT E.NAME
+FROM EMPLOYEE E
+WHERE E.EMPLOYEEID NOT IN (
+    SELECT D.EMPLOYEEID FROM DEPENDENT D
+);
+
++---------+
+| NAME    |
++---------+
+| Charlie |
+| Frank   |
++---------+
+
+-- Charlie (103) and Frank (106) from EMPLOYEE table shows up in output because there is no dependent equivalent values for EmployeeID (103) and (104) in the DEPENDENT table.
+----------------------------------------------------
+-- 3)  Managers who have at least one dependent
+----------------------------------------------------
+
+SELECT E.NAME AS MGR_NAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D ON E.EMPLOYEEID = D.MANAGERID
+WHERE E.EMPLOYEEID IN (
+    SELECT EMPLOYEEID FROM DEPENDENT
+);
+
++----------+
+| MGR_NAME |
++----------+
+| Alice    |
+| Bob      |
+| Eve      |
++----------+
+
+-- ----------------------------------------------
+-- Q4: Employee and their immediate supervisor
+-- ----------------------------------------------
+
+SELECT E.Name AS EMPLOYEE_NAME,
+       S.Name AS SUPERVISOR_NAME
+FROM EMPLOYEE E
+LEFT JOIN EMPLOYEE S 
+       ON E.SuperEID = S.EmployeeID;
+
++---------------+-----------------+
+| EMPLOYEE_NAME | SUPERVISOR_NAME |
++---------------+-----------------+
+| Alice         | NULL            |
+| Bob           | Alice           |
+| Charlie       | Alice           |
+| Diana         | Charlie         |
+| Eve           | Alice           |
+| Frank         | Eve             |
++---------------+-----------------+
