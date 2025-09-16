@@ -1,3 +1,5 @@
+-- Q-6)  DATE FUNCTIONS
+
 -- 1)  1.	List all employees whose age lies between 25 - 45 years
 
 SELECT
