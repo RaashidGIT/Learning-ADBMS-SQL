@@ -1,4 +1,4 @@
-1: Familiarization of DDL Commands and Constraints.
+-- Q-1)  FAMILIARIZATION OF DDL COMMANDS AND CONSTRAINTS
 
 Consider the schema: -
 
