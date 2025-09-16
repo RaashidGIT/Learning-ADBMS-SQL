@@ -155,3 +155,121 @@ LIMIT 5;
 | ARAVIND | 47000.00 | FINANCE |
 +---------+----------+---------+
 
+--  3) 	Consider the relations
+    --           Customer(cust_id, cust_name, address)
+    --           Order(ord_no, cust_id, ord_date, ship_date, status, comments)
+    --           Field “Status” takes values like “delivered”, “pending”, “shipped” “cancelled”. 
+    --       Insert few records and create a stored procedure to return the count of orders delivered, pending, shipped and cancelled.
+
+-- ---------------------------------------------------
+-- Step 1: Create tables
+-- ---------------------------------------------------
+CREATE TABLE Customer (
+    cust_id INT PRIMARY KEY,
+    cust_name VARCHAR(50),
+    address VARCHAR(100)
+);
+
+CREATE TABLE `Order` (
+    ord_no INT PRIMARY KEY,
+    cust_id INT,
+    ord_date DATE,
+    ship_date DATE,
+    status VARCHAR(20),
+    comments VARCHAR(100),
+    FOREIGN KEY (cust_id) REFERENCES Customer(cust_id)
+);
+
+-- ---------------------------------------------------
+-- Step 2: Insert sample records
+-- ---------------------------------------------------
+INSERT INTO Customer VALUES
+(1, 'Alice', 'Kozhikode'),
+(2, 'Bob', 'Bangalore'),
+(3, 'Charlie', 'Chennai');
+
+INSERT INTO `Order` VALUES
+(101, 1, '2025-01-01', '2025-01-05', 'delivered', 'On time'),
+(102, 1, '2025-01-03', NULL, 'pending', 'Awaiting stock'),
+(103, 2, '2025-01-04', '2025-01-07', 'shipped', 'Dispatched via courier'),
+(104, 3, '2025-01-05', NULL, 'cancelled', 'Customer cancelled'),
+(105, 2, '2025-01-06', '2025-01-09', 'delivered', 'Late delivery');
+
+-- ---------------------------------------------------
+-- Step 3: Create stored procedure to return counts
+-- ---------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE GetOrderStatusCounts()
+BEGIN
+    SELECT 
+        SUM(status = 'delivered') AS delivered_count,
+        SUM(status = 'pending') AS pending_count,
+        SUM(status = 'shipped') AS shipped_count,
+        SUM(status = 'cancelled') AS cancelled_count
+    FROM `Order`;
+END$$
+
+DELIMITER ;
+
+-- ---------------------------------------------------
+-- Step 4: Call the procedure
+-- ---------------------------------------------------
+CALL GetOrderStatusCounts();
+
++-----------------+---------------+---------------+-----------------+
+| delivered_count | pending_count | shipped_count | cancelled_count |
++-----------------+---------------+---------------+-----------------+
+|               2 |             1 |             1 |               1 |
++-----------------+---------------+---------------+-----------------+
+
+-- 4)  Create a function to find the factorial of a number passed as parameter.
+
+DELIMITER $$
+
+CREATE FUNCTION factorial(n INT) 
+RETURNS BIGINT
+DETERMINISTIC
+BEGIN
+    DECLARE result BIGINT DEFAULT 1;
+    DECLARE i INT DEFAULT 1;
+
+    IF n < 0 THEN
+        RETURN NULL; -- factorial is not defined for negative numbers
+    END IF;
+
+    WHILE i <= n DO
+        SET result = result * i;
+        SET i = i + 1;
+    END WHILE;
+
+    RETURN result;
+END$$
+
+DELIMITER ;
+
+--  Testing the functions
+
+SELECT factorial(5); 
+
++--------------+
+| factorial(5) |
++--------------+
+|          120 |
++--------------+
+    
+SELECT factorial(0); 
+
++--------------+
+| factorial(0) |
++--------------+
+|            1 |
++--------------+
+
+SELECT factorial(10); 
+
++---------------+
+| factorial(10) |
++---------------+
+|       3628800 |
++---------------+
