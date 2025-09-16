@@ -43,3 +43,51 @@ SELECT * FROM HOURS_WORKED;
 | Eve           | Banking App          |       18.0 |
 | Frank         | Banking App          |       25.0 |
 +---------------+----------------------+------------+
+
+-- 3)  Update the project name of above view(Q1) from pname=’ProductX’ to pname=’Product Y’.
+
++----------------------+---------+------------+---------+
+| Pname                | Pnumber | Plocation  | Dnumber |
++----------------------+---------+------------+---------+
+| Payroll System       |       1 | Kochi      |       2 |
+| Inventory Management |       2 | Trivandrum |       2 |
+| Banking App          |       3 | Kozhikode  |       3 |
++----------------------+---------+------------+---------+
+
+UPDATE PROJECT
+    SET PNAME = 'Banking Application'
+    WHERE PNAME = 'Banking App';
+
++----------------------+---------+------------+---------+
+| Pname                | Pnumber | Plocation  | Dnumber |
++----------------------+---------+------------+---------+
+| Payroll System       |       1 | Kochi      |       2 |
+| Inventory Management |       2 | Trivandrum |       2 |
+| Banking Application  |       3 | Kozhikode  |       3 |
++----------------------+---------+------------+---------+
+
+-- 4)  Drop the HOURS_WORKED view.
+
+DROP VIEW HOURS_WORKED;
+
+-- 5)  Create a view WORK_INFO to display the employee ID, name, and project number of all employees whose working hour is greater than 0
+
+CREATE VIEW WORK_INFO AS
+SELECT 
+    E.EMPLOYEEID AS EID,
+    E.NAME AS NAME,
+    W.PNUMBER AS PROJ_NUM
+FROM EMPLOYEE E
+JOIN WORKS_ON W ON E.EMPLOYEEID = W.EMPLOYEEID
+WHERE W.HOURS > 0;
+
++-----+---------+----------+
+| EID | NAME    | PROJ_NUM |
++-----+---------+----------+
+| 101 | Alice   |        2 |
+| 103 | Charlie |        2 |
+| 104 | Diana   |        2 |
+| 104 | Diana   |        3 |
+| 105 | Eve     |        3 |
+| 106 | Frank   |        3 |
++-----+---------+----------+
