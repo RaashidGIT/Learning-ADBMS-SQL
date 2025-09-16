@@ -1,3 +1,5 @@
+-- Q8)  NESTED QUERIES & JOINT OPERATIONS
+
 -- 1)  Retrieve the name of each employee who has a dependent with the same name and is the same sex as Employee.
 
 -- -------------------------------
