@@ -1,3 +1,5 @@
+-- Q-9) DATABASE VIEWS
+
 -- 1)  Create a view to display the department no, minimum salary, maximum salary and average salary in each department.
 
 CREATE VIEW DEPT_SALARY_STATS AS
