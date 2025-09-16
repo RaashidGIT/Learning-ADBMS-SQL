@@ -1,3 +1,5 @@
+-- Q-2)  EXECUTION OF DML COMMANDS
+
 -- 1)  Insert a single record into department table. 
 
 INSERT INTO Department (Dname, Dnumber, ManagerID, Mgr_start_date)
