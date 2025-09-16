@@ -1,3 +1,5 @@
+-- Q-3)  RETREIVING DATA USING SELECT COMMANDS
+
 -- 1)  List the records in the Employee table order by salary in ascending/descending order. 
 
 SELECT *
