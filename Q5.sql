@@ -1,3 +1,5 @@
+-- Q-5)  STRING FUNCTIONS
+
 -- 1)  Retrieve all employees whose name begins with Á’.
 
 SELECT * FROM EMPLOYEE WHERE NAME LIKE 'A%';
