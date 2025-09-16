@@ -273,3 +273,46 @@ SELECT factorial(10);
 +---------------+
 |       3628800 |
 +---------------+
+
+-- 5)  Write a function to check a number is perfect, abundant or deficient.
+
+DELIMITER $$
+
+CREATE FUNCTION CHECK_NUMBER_TYPE(n INT)
+RETURNS VARCHAR(20)
+DETERMINISTIC
+BEGIN
+    DECLARE sum_div INT DEFAULT 0;
+    DECLARE i INT DEFAULT 1;
+
+    -- Loop through divisors
+    WHILE i <= n/2 DO
+        IF n % i = 0 THEN
+            SET sum_div = sum_div + i;
+        END IF;
+        SET i = i + 1;
+    END WHILE;
+
+    -- Compare sum of divisors
+    IF sum_div = n THEN
+        RETURN 'PERFECT';
+    ELSEIF sum_div > n THEN
+        RETURN 'ABUNDANT';
+    ELSE
+        RETURN 'DEFICIENT';
+    END IF;
+END$$
+
+DELIMITER ;
+
+--  Testing the functions
+
+SELECT CHECK_NUMBER_TYPE(6) AS NUM_6,
+       CHECK_NUMBER_TYPE(12) AS NUM_12,
+       CHECK_NUMBER_TYPE(8) AS NUM_8;
+
++---------+----------+-----------+
+| NUM_6   | NUM_12   | NUM_8     |
++---------+----------+-----------+
+| PERFECT | ABUNDANT | DEFICIENT |
++---------+----------+-----------+
