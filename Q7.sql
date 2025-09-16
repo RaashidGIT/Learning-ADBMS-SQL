@@ -1,3 +1,5 @@
+-- Q-7)  UNION, INTERSECTION & SET-DIFFERENCE
+
 -- 1) Make list of all project numbers for projects that involve an employee whose name is “Raju” either as a worker or as a manager of the department that controls project.
 
 SELECT PNUMBER
