@@ -1,3 +1,5 @@
+-- Q-10) STORED PROCEDURES & FUNCTIONS
+
 --  Creating a new database
 
 CREATE DATABASE Q9;
