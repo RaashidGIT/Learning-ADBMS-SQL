@@ -2,7 +2,10 @@
 
 Consider the schema: -
 
-Student(admission_no, stud_name), Membership(member_id, admission_no), Book(book_id, book_name, author, book_type), BookType(type_id, type), BookIssue(issue_id, issue_date, member_id, book_id)
+Student(admission_no, stud_name), Membership(member_id, admission_no), 
+Book(book_id, book_name, author, book_type), 
+BookType(type_id, type), 
+BookIssue(issue_id, issue_date, member_id, book_id)
 
 Table: Student
 +--------------+------------------------------------+
