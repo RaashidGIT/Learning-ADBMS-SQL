@@ -28,6 +28,14 @@ ALTER TABLE Department
 ADD CONSTRAINT fk_manager FOREIGN KEY (ManagerID)
 REFERENCES Employee(EmployeeID);
 
+-----------------------------------------------------------------------
+-- In this method, MySQL will randomly choose a name for the constraint
+-----------------------------------------------------------------------
+ALTER TABLE Department
+ADD FOREIGN KEY (ManagerID)
+REFERENCES Employee(EmployeeID);
+-----------------------------------------------------------------------
+
 CREATE TABLE DeptLocations (
     Dnumber INT,
     Dlocation VARCHAR(100),
