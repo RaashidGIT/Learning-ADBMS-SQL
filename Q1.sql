@@ -127,8 +127,6 @@ MODIFY author VARCHAR(150);
 
 -- 4) Drop the BookType table
 ALTER TABLE Book DROP FOREIGN KEY book_ibfk_1; -- Add this line, if you want to delete the entire table whose one value is being referenced by another table.
---  SHOW CREATE TABLE Book;
--- This line shows you the schema details of the table including the constraint variables auto-initialized by the MySQL.
 DROP TABLE BookType;
 
 -- book_ibfk_1 is a name assigned to the foreign key by SQL default. In order to find out what name did SQL assigned to a integral constraint, look at the following example: -
