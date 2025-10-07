@@ -54,8 +54,8 @@ select d.dname as departmentname ,
 -- 4) Find the department number and maximum salary of those departments where minimum salary is greater than 10000 rupees.
 
 SELECT
-    ->     Dnumber,
-    ->     MAX(Salary) AS MaximumSalary
+    -> Dnumber,
+    -> MAX(Salary) AS MaximumSalary
     -> FROM Employee
     -> GROUP BY Dnumber
     -> HAVING MIN(Salary) > 10000;
