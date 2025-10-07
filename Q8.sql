@@ -75,6 +75,10 @@ WHERE E.EMPLOYEEID IN (
 -- Q4: Employee and their immediate supervisor
 -- ----------------------------------------------
 
+-- self-join is when a table is joined to itself — in this case, the EMPLOYEE table is used twice:
+--    Once to represent the employee
+--    Once to represent their supervisor
+
 SELECT E.Name AS EMPLOYEE_NAME,
        S.Name AS SUPERVISOR_NAME
 FROM EMPLOYEE E
